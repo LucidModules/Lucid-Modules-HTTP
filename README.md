@@ -1,6 +1,9 @@
 # LmHttp
 
-This is a contract API for HTTP libraries for enhanced flexibility.
+This is a contract API for HTTP libraries for enhanced flexibility. 
+
+You can easily mock this library and forget about the implementation details for tests. 
+Change to a new HTTP client should not require any modifications in the business logic code.
 
 ## Installation
 
