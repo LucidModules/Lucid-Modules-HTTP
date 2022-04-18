@@ -5,11 +5,11 @@ defmodule LmHttp.ResponseApi do
 
   @type t :: module
 
-  alias LmHttp.ClientApi
+  alias LmHttp.ClientAdapter
   alias LmHttp.ResponseApi
 
   @doc """
   Deserialize raw response into response structure
   """
-  @callback deserialize(ClientApi.response()) :: ResponseApi
+  @callback deserialize(ClientAdapter.response()) :: ResponseApi
 end

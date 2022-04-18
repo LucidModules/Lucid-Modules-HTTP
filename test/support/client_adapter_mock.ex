@@ -1,11 +1,9 @@
-defmodule LmHttp.ClientMock do
+defmodule LmHttp.ClientAdapterMock do
   @moduledoc """
   This is a Client Mock for testing purposes. It returns provided parameters as the test verification.
   """
 
-  alias LmHttp.ClientApi
-
-  @behaviour LmHttp.ClientApi
+  @behaviour LmHttp.ClientAdapter
 
   @type mocked_response :: %{mocked: {}}
 

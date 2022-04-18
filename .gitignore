@@ -26,4 +26,4 @@ lm_http-*.tar
 /tmp/
 
 # IntelliJ
-./.idea
+/.idea

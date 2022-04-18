@@ -2,21 +2,26 @@ defmodule LmHttp.Client do
   @moduledoc """
   This is a client implementation that picks a client specified in the configuration.
 
-  Configure the current client in
-  config :ueberauth_line, LmHttp.Client,
-    client: MyClient
+  Configure the current client adapter:
+  use LmHttp.Client, adapter: MyClient
   """
 
-  alias LmHttp.Config
+  defmacro __using__(opts) do
+    quote bind_quoted: [opts: opts] do
+      @behaviour LmHttp.ClientAdapter
 
-  @behaviour LmHttp.ClientApi
+      {adapter} = LmHttp.ClientConfig.compile_config!(opts)
 
-  @spec request(ClientApi.serialized_request()) :: ClientApi.result()
-  @doc """
-  Generic request.
-  """
-  @impl true
-  def request(serialized_request) do
-    Config.get_client!().request(serialized_request)
+      @adapter adapter
+
+      @spec request(ClientAdapter.serialized_request()) :: ClientAdapter.result()
+      @doc """
+      Generic request.
+      """
+      @impl true
+      def request(serialized_request) do
+        @adapter.request(serialized_request)
+      end
+    end
   end
 end

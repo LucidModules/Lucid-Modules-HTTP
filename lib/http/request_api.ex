@@ -5,11 +5,11 @@ defmodule LmHttp.RequestApi do
 
   @type t :: module
 
-  alias LmHttp.ClientApi
+  alias LmHttp.ClientAdapter
   alias LmHttp.RequestApi
 
   @doc """
   Serialize the Request into map
   """
-  @callback serialize(RequestApi.t()) :: ClientApi.serialized_request()
+  @callback serialize(RequestApi.t()) :: ClientAdapter.serialized_request()
 end

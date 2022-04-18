@@ -1,4 +1,4 @@
-defmodule LmHttp.ClientApi do
+defmodule LmHttp.ClientAdapter do
   @moduledoc """
   Behaviour for HTTP clients that should implement the request callback.
   """

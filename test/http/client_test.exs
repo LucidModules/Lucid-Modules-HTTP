@@ -1,31 +1,9 @@
 defmodule LmHttp.ClientTest do
   use ExUnit.Case, async: true
 
-  import Mock
+  alias LmHttp.TestClient
 
-  alias LmHttp.Client
-  alias LmHttp.Config
-  alias LmHttp.ClientMock
-
-  defp config_get_client!() do
-    ClientMock
-  end
-
-  describe "given Config with configured client" do
-    setup_with_mocks([
-      {
-        Config,
-        [:passthrough],
-        [
-          get_client!: &config_get_client!/0
-        ]
-      }
-    ]) do
-      Code.require_file("test/http/client_mock.exs")
-
-      :ok
-    end
-
+  describe "given Client with configured adapter" do
     test "it executes request" do
       serialized = %{
         method: :post,
@@ -40,7 +18,7 @@ defmodule LmHttp.ClientTest do
 
       assert %{
                mocked: ^serialized
-             } = Client.request(serialized)
+             } = TestClient.request(serialized)
     end
   end
 end
