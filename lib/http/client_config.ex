@@ -3,7 +3,7 @@ defmodule LmHttp.ClientConfig do
   LmHttp configuration parser.
   """
 
-  @type client_config :: {LmHttp.ClientAdapter}
+  @type client_config :: {LmHttp.ClientAdapter, Logger}
 
   @spec compile_config!(keyword) :: client_config
   def compile_config!(opts) do
@@ -12,10 +12,15 @@ defmodule LmHttp.ClientConfig do
       |> ensure_compiled!()
       |> ensure_implements_behaviour!(LmHttp.ClientAdapter, :adapter)
 
-    {adapter}
+    logger = get_config!(opts, :logger, [:optional])
+
+    {adapter, logger}
   end
 
-  defp get_config!(opts, field_name) do
+  defp get_config!(opts, field_name, opts \\ [])
+  defp get_config!(opts, field_name, [:optional]), do: Keyword.get(opts, field_name)
+
+  defp get_config!(opts, field_name, _) do
     value = Keyword.get(opts, field_name)
 
     unless value do

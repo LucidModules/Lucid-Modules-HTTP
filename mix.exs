@@ -2,7 +2,7 @@ defmodule LmHttp.MixProject do
   use Mix.Project
 
   @source_url "https://github.com/LucidModules/elixir-http"
-  @version "0.2.0"
+  @version "0.3.0"
 
   def project do
     [

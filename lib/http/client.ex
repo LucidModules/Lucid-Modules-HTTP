@@ -10,9 +10,10 @@ defmodule LmHttp.Client do
     quote bind_quoted: [opts: opts] do
       @behaviour LmHttp.ClientAdapter
 
-      {adapter} = LmHttp.ClientConfig.compile_config!(opts)
+      {adapter, logger} = LmHttp.ClientConfig.compile_config!(opts)
 
       @adapter adapter
+      @logger logger
 
       @spec request(ClientAdapter.serialized_request()) :: ClientAdapter.result()
       @doc """
@@ -21,6 +22,19 @@ defmodule LmHttp.Client do
       @impl true
       def request(serialized_request) do
         @adapter.request(serialized_request)
+        |> maybe_debug_log(serialized_request)
+      end
+
+      defp maybe_debug_log(response, request) do
+        case @logger do
+          nil ->
+            response
+
+          logger ->
+            logger.debug("#{__MODULE__} log:", request: request, response: response)
+        end
+
+        response
       end
     end
   end
