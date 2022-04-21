@@ -3,6 +3,10 @@ defmodule LmHttp.Payload do
   Payload content filter functions.
   """
 
+  def to_keyword(payload) when is_map(payload) do
+    Keyword.new(payload, fn {k,v} -> {String.to_existing_atom(k), v} end)
+  end
+
   @spec remove_nils(map()) :: map()
   def remove_nils(payload) when is_map(payload) do
     Map.reject(payload, &map_reject_nil/1)
