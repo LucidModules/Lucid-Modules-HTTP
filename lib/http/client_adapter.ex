@@ -7,14 +7,14 @@ defmodule LmHttp.ClientAdapter do
 
   @type body :: map()
   @type query_params :: map()
-  @type headers :: tuple()
+  @type headers :: keyword()
   @type url :: String.t()
 
   @type endpoint :: String.t()
   @type http_method :: atom()
 
-  @type serialized_request :: %{method: http_method, endpoint: endpoint, headers: map, body: map}
-  @type response :: %{status: integer(), body: map(), headers: map()}
+  @type serialized_request :: %{method: http_method, endpoint: endpoint, headers: headers, body: body}
+  @type response :: %{status: integer(), body: body, headers: headers}
   @type result :: {:ok, response} | {:error, String.t()}
 
   @doc """

@@ -8,6 +8,8 @@ defmodule LmHttp.Client do
 
   defmacro __using__(opts) do
     quote bind_quoted: [opts: opts] do
+      require Logger
+
       @behaviour LmHttp.ClientAdapter
 
       {adapter} = LmHttp.ClientConfig.compile_config!(opts)
